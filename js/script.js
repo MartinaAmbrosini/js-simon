@@ -36,53 +36,41 @@ var guessNumArr = [];
 
 
 //  l'utente vede 5 num  e gli si dice di memorizzarli
-for (let i = 0; i < 5; i++){
-    randomNumber = createRandomNumber();
-    numbers.push(randomNumber);
-}
+generateRandomNumbers(5);
 
 numToRem.innerHTML = "Numeri: " + numbers.join(", ");
 
+// !! aggiungi alert !!
+
 // creo un timer di 30 sec dove compaiono i numeri casuali
 
-var timer = setInterval(
-
+while (seconds > 0) {
+    var timer = setInterval(
     function() {
+        // if(seconds === 0){ //entra nell'IF ?? --> seconds non va mai a 0 perché non gli assegni un nuovo valore !!
+        //     console.log("Ciao");
+        //     clearInterval(timer);
+        //     // dopo 30 sec i num spariscono
+        //     numToRem.classList.add("hidden");
+        //     time.classList.add("time-hidden");
+        // }
         time.innerHTML = seconds;
-        if(seconds === 0){
-            clearInterval(timer);
-            // dopo 30 sec i num spariscono
-            numToRem.classList.add("hidden");
-            time.classList.add("time-hidden");
-        }
+        seconds--;
+    },
+    1000);
+}
 
-    //  ciclo for + 
-        for (let i= 0; i < 5; i++){
 
-        // appare messaggio che chiede all'utente di indovinare i num appena visti
-            setTimeout(waitPrompt, 1500);
 
-            function waitPrompt() {
-                guessNum = parseInt(prompt("Inserisci uno dei 5 numeri visti"));
-                guessNumArr.push(guessNum);
-                console.log(guessNumArr);
-            }
+//  ciclo for + 
+for (let i= 0; i < 5; i++){
 
-            setTimeout(waitText, 4000);
-                function waitText(){
-                    if(numbers.includes(guessNumArr[i])){
-                    console.log("Hai indovinato il numero:" + guessNumArr[i]);
-                    validOrNotNum.innerHTML += "Hai indovinato il numero:" + guessNumbArr[i];
-                    } else{
-                        console.log(`Il numero ${guessNumberArray[i]} è sbagliato`);
-                    }
+// appare messaggio che chiede all'utente di indovinare i num appena visti
+    setTimeout(waitPrompt, 1500);
 
-                    numToRem.classList.remove("hidden");
-                    numToRem.innerHTML = "I numeri da indovinare erano: " + numbers };
-                    writNum.innerHTML = "I numeri che hai scritto tu sono:" + guessNumArr}.;
-                }   
-
-});
+    setTimeout(waitText, 4000);
+            
+}
      
 
 
@@ -91,4 +79,39 @@ var timer = setInterval(
 
 function createRandomNumber(){
     return Math.floor(Math.random() * 100 + 1);
+}
+
+
+// funzione che inizializza l'array numbers inserendo num numeri distinti casuali
+function generateRandomNumbers(num) {
+    //  l'utente vede 5 num  e gli si dice di memorizzarli
+    while (numbers.length <= num){
+        randomNumber = createRandomNumber();
+        if (!numbers.includes(randomNumber)) {
+        numbers.push(randomNumber);
+        }
+    }
+
+    return 
+}
+
+function waitPrompt() {
+    guessNum = parseInt(prompt("Inserisci uno dei 5 numeri visti"));
+    guessNumArr.push(guessNum);
+    console.log(guessNumArr);
+}
+
+function waitText(){
+    if (numbers.includes(guessNumArr[i])) {
+        console.log("Hai indovinato il numero:" + guessNumArr[i]);
+        validOrNotNum.innerHTML += "Hai indovinato il numero:" + guessNumbArr[i];
+    } else {
+        console.log("Il numero " + guessNumArr[i] + " è sbagliato");
+        numToRem.classList.remove("hidden");
+        numToRem.innerHTML = "I numeri da indovinare erano: " + numbers };
+        writNum.innerHTML = "I numeri che hai scritto tu sono:" + guessNumArr;
+}
+
+function timer() {
+    
 }
