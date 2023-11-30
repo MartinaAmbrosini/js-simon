@@ -18,8 +18,11 @@
 // *OCIO che se arrivate al punto in cui stampate i numeri in pagina che poi devono sparire, ma la richiesta dei numeri all’utente la state facendo ancora con il prompt, su Chrome facile che non vi aggiorni la pagina nei tempi giusti (e quindi i numeri non scompaiano quando glielo dite voi).
 
 // prendo gli elementi tramite loro ID 
-const numToRem = document.getElementById("num")
-const time = document.getElementById("time")
+const numToRem = document.getElementById("num");
+const time = document.getElementById("time");
+const writNum = document.getElementById("num-written");
+const validOrNotNum = document.getElementById("valid-or-not");
+
 
 
 // creo elementi array vuoti 
@@ -58,19 +61,29 @@ var timer = setInterval(
 
         // appare messaggio che chiede all'utente di indovinare i num appena visti
             setTimeout(waitPrompt, 1500);
-            
+
             function waitPrompt() {
                 guessNum = parseInt(prompt("Inserisci uno dei 5 numeri visti"));
                 guessNumArr.push(guessNum);
                 console.log(guessNumArr);
             }
-    }
 
+            setTimeout(waitText, 4000);
+                function waitText(){
+                    if(numbers.includes(guessNumArr[i])){
+                    console.log("Hai indovinato il numero:" + guessNumArr[i]);
+                    validOrNotNum.innerHTML += "Hai indovinato il numero:" + guessNumbArr[i];
+                    } else{
+                        console.log(`Il numero ${guessNumberArray[i]} è sbagliato`);
+                    }
+
+                    numToRem.classList.remove("hidden");
+                    numToRem.innerHTML = "I numeri da indovinare erano: " + numbers };
+                    writNum.innerHTML = "I numeri che hai scritto tu sono:" + guessNumArr}.;
+                }   
+
+});
      
-
-        // SE li indovina tutti il ciclo finisce e appare messaggio vincita
-        // Altrimenti l'utente perde
-
 
 
 
