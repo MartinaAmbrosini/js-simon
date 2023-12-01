@@ -17,101 +17,69 @@
 // *Fate sempre una cosa sola alla volta, risolvendo un problema alla volta.
 // *OCIO che se arrivate al punto in cui stampate i numeri in pagina che poi devono sparire, ma la richiesta dei numeri all’utente la state facendo ancora con il prompt, su Chrome facile che non vi aggiorni la pagina nei tempi giusti (e quindi i numeri non scompaiano quando glielo dite voi).
 
-// prendo gli elementi tramite loro ID 
-const numToRem = document.getElementById("num");
-const time = document.getElementById("time");
-const writNum = document.getElementById("num-written");
-const validOrNotNum = document.getElementById("valid-or-not");
 
+// array random number
+const arrayRandomNum = [];
 
+// generation 5 random number
+for (let i = 0; i < 5; i++) {
+    // call function
+    randomNum = randomNumbMinMax(1, 100);
+    // console.log(randomNum);
 
-// creo elementi array vuoti 
+    //push randomNum nell'array
+    arrayRandomNum.push(randomNum);
 
-var numbers = [];
-var seconds = 30;
-var guessNum;
-var guessNumArr = [];
-
-
-
-
-//  l'utente vede 5 num  e gli si dice di memorizzarli
-generateRandomNumbers(5);
-
-numToRem.innerHTML = "Numeri: " + numbers.join(", ");
-
-// !! aggiungi alert !!
-
-// creo un timer di 30 sec dove compaiono i numeri casuali
-
-while (seconds > 0) {
-    var timer = setInterval(
-    function() {
-        // if(seconds === 0){ //entra nell'IF ?? --> seconds non va mai a 0 perché non gli assegni un nuovo valore !!
-        //     console.log("Ciao");
-        //     clearInterval(timer);
-        //     // dopo 30 sec i num spariscono
-        //     numToRem.classList.add("hidden");
-        //     time.classList.add("time-hidden");
-        // }
-        time.innerHTML = seconds;
-        seconds--;
-    },
-    1000);
 }
 
+// selection element
+const containerRandomNumber = document.querySelector(".num");;
 
+// show on screen
+containerRandomNumber.innerHTML = arrayRandomNum;
 
-//  ciclo for + 
-for (let i= 0; i < 5; i++){
+// array user number
+const arrayUserNum = [];
 
-// appare messaggio che chiede all'utente di indovinare i num appena visti
-    setTimeout(waitPrompt, 1500);
+// after 30s
+setTimeout(function() {
 
-    setTimeout(waitText, 4000);
-            
-}
-     
+    // array disapper from screen
+    containerRandomNumber.classList.add("hidden");
 
-
-
-// FUNZIONI
-
-function createRandomNumber(){
-    return Math.floor(Math.random() * 100 + 1);
-}
-
-
-// funzione che inizializza l'array numbers inserendo num numeri distinti casuali
-function generateRandomNumbers(num) {
-    //  l'utente vede 5 num  e gli si dice di memorizzarli
-    while (numbers.length <= num){
-        randomNumber = createRandomNumber();
-        if (!numbers.includes(randomNumber)) {
-        numbers.push(randomNumber);
-        }
+    // prompt user num 
+    for (let i = 0; i < 5; i++) {
+        userNum = parseInt(prompt("Inserisci qui i numeri"));
+        arrayUserNum.push(userNum);
     }
 
-    return 
-}
+    console.log(`Array user number: ${arrayUserNum}`);   
+    console.log(`Array random number: ${arrayRandomNum}`);  
 
-function waitPrompt() {
-    guessNum = parseInt(prompt("Inserisci uno dei 5 numeri visti"));
-    guessNumArr.push(guessNum);
-    console.log(guessNumArr);
-}
+    // ...
 
-function waitText(){
-    if (numbers.includes(guessNumArr[i])) {
-        console.log("Hai indovinato il numero:" + guessNumArr[i]);
-        validOrNotNum.innerHTML += "Hai indovinato il numero:" + guessNumbArr[i];
+    // Verifica se tutti gli elementi di arrayRandomNum sono presenti in arrayUserNum
+    const check = arrayRandomNum.every(function(randomNum) {
+        return arrayUserNum.includes(randomNum);
+    });
+
+    // Stampa il risultato
+    if (check) {
+        console.log("Ci sono tutti gli elementi di" + arrayRandomNum);
     } else {
-        console.log("Il numero " + guessNumArr[i] + " è sbagliato");
-        numToRem.classList.remove("hidden");
-        numToRem.innerHTML = "I numeri da indovinare erano: " + numbers };
-        writNum.innerHTML = "I numeri che hai scritto tu sono:" + guessNumArr;
-}
+        console.log("Non ci sono tutti gli elementi di " + arrayRandomNum);
+    }
 
-function timer() {
-    
+
+
+}, 3000)
+
+
+
+// Functions
+
+// Random number between min and max (both included) 
+function randomNumbMinMax (min, max) {
+    const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomNum;
 }
